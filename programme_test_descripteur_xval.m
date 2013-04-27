@@ -5,8 +5,6 @@ function programme_test_descripteur_xval(subject,optim,plot_tree,kept_axes,...
 %Parametres de la structure class
 %Doit contenir le champ signal de taille: nb_trials x nb_samples x nb_chans
 
-%lol
-
 dwt_without_optim=optim.dwt_without_optim;
 optim_fisher=optim.optim_fisher;
 optim_pce=optim.optim_pce;
