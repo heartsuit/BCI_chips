@@ -1,0 +1,79 @@
+
+Décomposition paquet d'ondelettes niveau de décomposition maximum :
+durée du signal : 2s (3.5s-->5.5s Le mouvement effectué a 4s).
+
+sujet : SUBJECT 1 OLD
+ 
+   PCE Test (mean) : 33.3333
+sujet : SUBJECT 1 NEW
+ 
+   PCE Test (mean) : 44.1667
+sujet : SUBJECT 2 OLD
+ 
+   PCE Test (mean) : 42.5
+sujet : SUBJECT 2 NEW
+ 
+   PCE Test (mean) : 56.6667
+sujet : SUBJECT 3
+ 
+   PCE Test (mean) : 43.3333
+sujet : DANTAN
+ 
+   PCE Test (mean) : 49.1667
+   
+   
+Décomposition paquet d'ondelettes niveau de décomposition 3 :
+durée du signal : 2s (3.5s-->5.5s Le mouvement effectué a 4s).
+
+sujet : SUBJECT 1 OLD
+ 
+   PCE Test (mean) : 32.5
+sujet : SUBJECT 1 NEW
+ 
+   PCE Test (mean) : 31.6667
+sujet : SUBJECT 2 OLD
+ 
+   PCE Test (mean) : 44.1667
+sujet : SUBJECT 2 NEW
+ 
+   PCE Test (mean) : 47.5
+sujet : SUBJECT 3
+ 
+   PCE Test (mean) : 35.8333
+sujet : DANTAN
+ 
+   PCE Test (mean) : 34.1667
+   
+   
+   
+DWT
+sujet : SUBJECT 1 OLD
+P_E_estim_E	 | E_estim = Wrong	 | E_estim = Correct
+E = Wrong	 | 65.000000			 | 35.000000
+E = Correct	 | 38.333333			 | 61.666667
+Critère qualité : 63.3333
+sujet : SUBJECT 1 NEW
+P_E_estim_E	 | E_estim = Wrong	 | E_estim = Correct
+E = Wrong	 | 58.333333			 | 41.666667
+E = Correct	 | 40.000000			 | 60.000000
+Critère qualité : 59.1667
+sujet : SUBJECT 2 OLD
+P_E_estim_E	 | E_estim = Wrong	 | E_estim = Correct
+E = Wrong	 | 30.000000			 | 70.000000
+E = Correct	 | 58.333333			 | 41.666667
+Critère qualité : 35.8333
+sujet : SUBJECT 2 NEW
+P_E_estim_E	 | E_estim = Wrong	 | E_estim = Correct
+E = Wrong	 | 46.666667			 | 53.333333
+E = Correct	 | 51.666667			 | 48.333333
+Critère qualité : 47.5
+sujet : SUBJECT 3
+P_E_estim_E	 | E_estim = Wrong	 | E_estim = Correct
+E = Wrong	 | 60.000000			 | 40.000000
+E = Correct	 | 51.666667			 | 48.333333
+Critère qualité : 54.1667
+sujet : DANTAN
+P_E_estim_E	 | E_estim = Wrong	 | E_estim = Correct
+E = Wrong	 | 43.333333			 | 56.666667
+E = Correct	 | 61.666667			 | 38.333333
+Critère qualité : 40.8333

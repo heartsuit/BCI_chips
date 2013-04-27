@@ -1,0 +1,137 @@
+Subject 1 New
+Niveau de décomposition :11
+Elapsed time is 2.873987 seconds.
+Elapsed time is 8.209522 seconds.
+P_C_estim_C_real	 | C_estim = 1	 | C_estim = 2
+C_real = 1	 | 71.666667			 | 28.333333
+C_real = 2	 | 25.000000			 | 75.000000
+mean of optim citerion : 18.0874
+PCE_db2 : 0.26667
+-----------------------------------------------------------------
+Elapsed time is 66.367734 seconds.
+P_C_estim_C_real	 | C_estim = 1	 | C_estim = 2
+C_real = 1	 | 65.000000			 | 35.000000
+C_real = 2	 | 35.000000			 | 65.000000
+PCE_bb : 0.35
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+Subject 1 Old
+Niveau de décomposition :11
+Elapsed time is 2.899678 seconds.
+Elapsed time is 10.990675 seconds.
+P_C_estim_C_real	 | C_estim = 1	 | C_estim = 2
+C_real = 1	 | 60.000000			 | 40.000000
+C_real = 2	 | 23.333333			 | 76.666667
+mean of optim citerion : 68.1721
+PCE_db2 : 0.31667
+-----------------------------------------------------------------
+Elapsed time is 64.591074 seconds.
+P_C_estim_C_real	 | C_estim = 1	 | C_estim = 2
+C_real = 1	 | 75.000000			 | 25.000000
+C_real = 2	 | 18.333333			 | 81.666667
+PCE_bb : 0.21667
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+Subject 2 New
+Niveau de décomposition :11
+Elapsed time is 2.910621 seconds.
+Elapsed time is 13.061462 seconds.
+P_C_estim_C_real	 | C_estim = 1	 | C_estim = 2
+C_real = 1	 | 58.333333			 | 41.666667
+C_real = 2	 | 30.000000			 | 70.000000
+mean of optim citerion : 13.2267
+PCE_db2 : 0.35833
+-----------------------------------------------------------------
+Elapsed time is 68.223254 seconds.
+P_C_estim_C_real	 | C_estim = 1	 | C_estim = 2
+C_real = 1	 | 61.666667			 | 38.333333
+C_real = 2	 | 33.333333			 | 66.666667
+PCE_bb : 0.35833
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+Subject 2 Old
+Niveau de décomposition :11
+Elapsed time is 2.890661 seconds.
+Elapsed time is 9.812094 seconds.
+P_C_estim_C_real	 | C_estim = 1	 | C_estim = 2
+C_real = 1	 | 75.000000			 | 25.000000
+C_real = 2	 | 26.666667			 | 73.333333
+mean of optim citerion : 10.7446
+PCE_db2 : 0.25833
+-----------------------------------------------------------------
+Elapsed time is 66.015176 seconds.
+P_C_estim_C_real	 | C_estim = 1	 | C_estim = 2
+C_real = 1	 | 53.333333			 | 46.666667
+C_real = 2	 | 43.333333			 | 56.666667
+PCE_bb : 0.45
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+Subject 3
+Niveau de décomposition :11
+Elapsed time is 2.904017 seconds.
+Elapsed time is 13.450623 seconds.
+P_C_estim_C_real	 | C_estim = 1	 | C_estim = 2
+C_real = 1	 | 68.333333			 | 31.666667
+C_real = 2	 | 41.666667			 | 58.333333
+mean of optim citerion : 21.7681
+PCE_db2 : 0.36667
+-----------------------------------------------------------------
+Elapsed time is 67.244272 seconds.
+P_C_estim_C_real	 | C_estim = 1	 | C_estim = 2
+C_real = 1	 | 65.000000			 | 35.000000
+C_real = 2	 | 33.333333			 | 66.666667
+PCE_bb : 0.34167
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+Dantan
+Niveau de décomposition :11
+Elapsed time is 2.881006 seconds.
+Elapsed time is 2.604589 seconds.
+P_C_estim_C_real	 | C_estim = 1	 | C_estim = 2
+C_real = 1	 | 85.000000			 | 15.000000
+C_real = 2	 | 13.333333			 | 86.666667
+mean of optim citerion : 4.072
+PCE_db2 : 0.14167
+-----------------------------------------------------------------
+Elapsed time is 66.772930 seconds.
+P_C_estim_C_real	 | C_estim = 1	 | C_estim = 2
+C_real = 1	 | 60.000000			 | 40.000000
+C_real = 2	 | 43.333333			 | 56.666667
+PCE_bb : 0.41667
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+Duy
+Niveau de décomposition :11
+Elapsed time is 3.512296 seconds.
+Elapsed time is 15.057979 seconds.
+P_C_estim_C_real	 | C_estim = 1	 | C_estim = 2
+C_real = 1	 | 46.666667			 | 53.333333
+C_real = 2	 | 40.000000			 | 60.000000
+mean of optim citerion : 59.1045
+PCE_db2 : 0.46667
+-----------------------------------------------------------------
+Elapsed time is 67.859151 seconds.
+P_C_estim_C_real	 | C_estim = 1	 | C_estim = 2
+C_real = 1	 | 61.666667			 | 38.333333
+C_real = 2	 | 36.666667			 | 63.333333
+PCE_bb : 0.375
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+Jackob
+Niveau de décomposition :11
+Elapsed time is 2.879169 seconds.
+Elapsed time is 13.617206 seconds.
+P_C_estim_C_real	 | C_estim = 1	 | C_estim = 2
+C_real = 1	 | 51.666667			 | 48.333333
+C_real = 2	 | 55.000000			 | 45.000000
+mean of optim citerion : 43.5825
+PCE_db2 : 0.51667
+-----------------------------------------------------------------
+Elapsed time is 68.797664 seconds.
+P_C_estim_C_real	 | C_estim = 1	 | C_estim = 2
+C_real = 1	 | 56.666667			 | 43.333333
+C_real = 2	 | 48.333333			 | 51.666667
+PCE_bb : 0.45833
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+>> 

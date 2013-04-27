@@ -1,0 +1,11 @@
+function y = marg(c,l,ind)
+
+y = zeros(ind,3);
+y(1,1) = mean(abs(c(1:l(1))));
+if ind >= 2
+    for i=2:ind
+        y(i,1) = mean(abs(c((1:l(i))+sum(l(1:i-1)))));
+    end
+end
+
+y = y(:);

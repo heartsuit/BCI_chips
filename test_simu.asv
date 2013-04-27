@@ -1,0 +1,35 @@
+close all;
+
+Fe=1024;
+nb_class=5;
+time=2;
+J=6;
+nb_trials=120;
+sigma=1;
+
+[y_learn,signal_learn,f]= simu_creation(nb_trials,J,time,nb_class,Fe,sigma);
+
+% plot(signal_learn(1,:,1));
+% hold on
+% plot(signal_learn(2,:,1),'color','g');
+% plot(signal_learn(3,:,1),'color','b');
+% plot(y_learn,'color','r');
+a=0;
+
+
+for i=[1,26,55,79,115]
+a=a+1;
+[fr(a,:),z(a,:),nf(a)]=analyseFFT(signal_learn(i,:,1),Fe);
+end
+figure;
+plot(f);
+
+figure;
+plot(fr(1,:),abs(z(1,1 :nf(1))),'color','g');
+hold on;
+plot(fr(2,:),abs(z(2,1 :nf(2))),'color','b');
+plot(fr(3,:),abs(z(3,1 :nf(3))),'color','r');
+plot(fr(4,:),abs(z(4,1 :nf(4))),'color','c');
+plot(fr(5,:),abs(z(5,1 :nf(5))),'color','y');
+
+saveas(gcf,'rec_graph/hihi,

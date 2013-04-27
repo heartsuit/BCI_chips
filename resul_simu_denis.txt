@@ -1,0 +1,2 @@
+db2        	pce         	fisher       	best basis
+0.4721   	0.209   	0.2016   	0.1286

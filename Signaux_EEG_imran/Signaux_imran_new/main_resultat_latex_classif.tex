@@ -1,0 +1,45 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage{a4wide}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+\usepackage{indentfirst}
+\usepackage{amsfonts}
+\usepackage{yfonts}
+\usepackage{mathrsfs}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts} 
+\usepackage{hyperref}
+\usepackage[french]{babel}
+\usepackage{rotating}
+\usepackage{amsthm}
+\usepackage{setspace}
+\usepackage{subfig}
+\usepackage{bbm}
+\usepackage{graphics} 																					% pour inserer des images
+%\usepackage{placeins} 																					% gestion du placement des flottants
+%\usepackage{hhline} 																						% lignes ameliorees pour tableaux
+%\usepackage{multirow} 																					% pour pouvoir fusionner des lignes dans un tableau
+%\usepackage{tabularx} 																					% pour fixer la largeur totale du tableau
+%\usepackage{supertabular} 																				% pour les tableaux de plus d'une page
+\usepackage[usenames,dvipsnames]{pstricks}													% pour les figures
+\usepackage{epsfig}																						% pour les figures
+\usepackage{pst-grad}																					% pour les figures
+\usepackage{pst-plot}																						% pour les figures
+\usepackage{multicol}																						% pour écrire sur plusieurs colonnes
+\usepackage{algorithm}																					% pour la mise en page des algorithmes
+\usepackage{algorithmic}																				% pour la mise en page des algorithmes
+
+
+\newcommand{\argmax}[1]{\underset{#1}{\operatorname{argmax}}\;}
+
+\newcommand{\argmin}[1]{\underset{#1}{\operatorname{argmin}}\;} 
+
+
+\begin{document}
+\begin{multicols}{2}
+	\include{resultat_classif}
+\end{multicols}
+\end{document}

@@ -1,0 +1,76 @@
+%clc
+clear all
+close all
+%clc
+dwt_without_optim = 1;
+optim_fisher = 1;
+optim_pce = 0;
+optim_basis = 0;
+
+addpath(genpath(cd));
+rand('state',0);
+
+sub_name = 'Subject 1 New';
+filename = 'gediminas_unvoluntary.mat';
+pathname = 'Signaux_EEG_imran/subject1_new/Unvoluntary/';
+disp(sub_name);
+figure('Name',sub_name);
+programme_test_descripteur_xval(filename,pathname,dwt_without_optim,optim_fisher,optim_pce,optim_basis)
+disp('-----------------------------------------------------------------');
+
+% sub_name = 'Subject 1 Old';
+% filename = 'gediminas_unvoluntary.mat';
+% pathname = 'Signaux_EEG_imran/subject1_old/Unvoluntary/';
+% disp(sub_name);
+% figure('Name',sub_name);
+% programme_test_descripteur_xval(filename,pathname,dwt_without_optim,optim_fisher,optim_pce,optim_basis)
+% disp('-----------------------------------------------------------------');
+
+% sub_name = 'Subject 2 New';
+% filename = 'marija_unvoluntary.mat';
+% pathname = 'Signaux_EEG_imran/subject2_new/unvoluntary/';
+% disp(sub_name);
+% figure('Name',sub_name);
+% programme_test_descripteur_xval(filename,pathname,dwt_without_optim,optim_fisher,optim_pce,optim_basis)
+% disp('-----------------------------------------------------------------');
+% 
+% sub_name = 'Subject 2 Old';
+% filename = 'marija_unvoluntary.mat';
+% pathname = 'Signaux_EEG_imran/subject2_old/Unvoluntary/';
+% disp(sub_name);
+% figure('Name',sub_name);
+% programme_test_descripteur_xval(filename,pathname,dwt_without_optim,optim_fisher,optim_pce,optim_basis)
+% disp('-----------------------------------------------------------------');
+% 
+% sub_name = 'Subject 3';
+% filename = 'mustafa_unvoluntary.mat';
+% pathname = 'Signaux_EEG_imran/subject3/unvoluntary/';
+% disp(sub_name);
+% figure('Name',sub_name);
+% programme_test_descripteur_xval(filename,pathname,dwt_without_optim,optim_fisher,optim_pce,optim_basis)
+% disp('-----------------------------------------------------------------');
+% 
+% sub_name = 'Dantan';
+% filename = 'unvoluntary.mat';
+% pathname = 'Signaux_EEG_imran/DanTAn/';
+% disp(sub_name);
+% figure('Name',sub_name);
+% programme_test_descripteur_xval(filename,pathname,dwt_without_optim,optim_fisher,optim_pce,optim_basis)
+% disp('-----------------------------------------------------------------');
+% 
+% sub_name = 'Duy';
+% filename = 'unvoluntary.mat';
+% pathname = 'Signaux_EEG_imran/duy/';
+% disp(sub_name);
+% figure('Name',sub_name);
+% programme_test_descripteur_xval(filename,pathname,dwt_without_optim,optim_fisher,optim_pce,optim_basis)
+% disp('-----------------------------------------------------------------');
+% 
+% sub_name = 'Jackob';
+% filename = 'unvoluntary.mat';
+% pathname = 'Signaux_EEG_imran/jakob/';
+% disp(sub_name);
+% figure('Name',sub_name);
+% programme_test_descripteur_xval(filename,pathname,dwt_without_optim,optim_fisher,optim_pce,optim_basis)
+% disp('-----------------------------------------------------------------');
+% rmpath(genpath(cd));

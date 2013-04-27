@@ -1,0 +1,6 @@
+File = {'gediminas_unvoluntary'};
+rep ='subject1_new\unvoluntary';
+[class_mvt, class_ep, chan_label, Fe] = read_imran_file(File,rep);
+
+N_start = 2200;
+N_end = 3500;

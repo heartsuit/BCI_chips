@@ -1,0 +1,6 @@
+function view_signal(filename,pathname,type)
+
+[x,y] = sig_read(filename,pathname,type);
+
+plot(x
+

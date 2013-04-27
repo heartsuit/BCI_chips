@@ -1,0 +1,33 @@
+function [inds,marg]=findmarg(tree,basis,N_dec)    
+
+tree_sorted=sort(tree(find(basis)),'descend');
+    
+    
+    marg=zeros(5,1);
+    j=1;
+    for i=1:5
+        if tree_sorted(1:5)==zeros(5,1)
+            k=basis(tree==0);
+            zero_tree=find(tree==0);
+            good_zeros=zero_tree(find(k));
+            inds_zeros=nds2ind(good_zeros,N_dec);
+            
+            while marg(i)==0
+                if j==size(inds_zeros,2)+1
+                    marg=good_zeros(1:5);
+                else
+                    if inds_zeros(2,j)<=2^(inds_zeros(1,j)-2)
+                        disp(['hihi'
+                        marg(i)=good_zeros(j);
+                    end
+                    j=j+1;
+                end
+            end
+        else
+            marg(i)=find(tree==tree_sorted(i));
+        end
+    end
+        
+    inds=nds2ind(marg,N_dec);
+    
+end
