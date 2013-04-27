@@ -148,8 +148,8 @@ if plot_tr.on
         label{3}='class1 trials';
         label{4}='class2 trials';
         
-        plot(plot_tr.f_scal,plot_tr.f1*(min(y_weft)*3/4),'color','b');
-        plot(plot_tr.f_scal,plot_tr.f2*(min(y_weft)*3/4),'color','m');  
+        plot(plot_tr.f_scal,plot_tr.f1-1,'color','g');
+        plot(plot_tr.f_scal,plot_tr.f2-1,'color','m');  
     end
    
 %%%%%%%%%%%%%%%%%%%%%%%% WAVELET FFT PLOTTING %%%%%%%%%%%%%%%%%%%%%%%%%%%%%

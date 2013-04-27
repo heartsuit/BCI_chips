@@ -62,6 +62,7 @@ if sim_sig==0
         plot_tr.fe=Fe;
     end
     
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% FILTERING %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     if filtre
         % standard wp and ws values: 35 , 45
@@ -626,7 +627,7 @@ if optim_basis
     k=find(basis_bb);
     ind_M=nds2ind(k,N_dec);
     M_phi=cell(length(ind_M),1);
-    for i=1:size(M_phi,2)  
+    for i=1:length(M_phi)  
         %création du texte associé à chaque point du cercle de corrélation
         M_phi{i}=['  M\phi_{' num2str(ind_M(1,i)) '}^{' num2str(ind_M(2,i)) '}' ];
     end
@@ -659,13 +660,21 @@ if optim_basis
     
     clk=clock;
     if plot_
-        saveas(gcf-6,['rec_graph/tree_bb_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
-        saveas(gcf-5,['rec_graph/1st_space_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
-        saveas(gcf-4,['rec_graph/2nd_space_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
-        saveas(gcf-3,['rec_graph/3rd_space_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
-        saveas(gcf-2,['rec_graph/4th_space_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
-        saveas(gcf-1,['rec_graph/distrib_bb_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
-        saveas(gcf,['rec_graph/correl_circle_bb_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
+        if exist('gcf-6','var')
+            ssaveas(gcf-6,['rec_graph/tree_bb_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
+        elseif exist('gcf-5','var')
+            saveas(gcf-5,['rec_graph/1st_space_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
+        elseif exist('gcf-4','var')
+            saveas(gcf-4,['rec_graph/2nd_space_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
+        elseif exist('gcf-3','var')
+            saveas(gcf-3,['rec_graph/3rd_space_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
+        elseif exist('gcf-2','var')
+            saveas(gcf-2,['rec_graph/4th_space_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
+        elseif exist('gcf-1','var')
+            saveas(gcf-1,['rec_graph/distrib_bb_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
+        elseif exist('gcf','var')
+            saveas(gcf,['rec_graph/correl_circle_bb_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
+        end
     end
 end
 
@@ -752,7 +761,7 @@ if optim_basis_ACP
     k=find(basis_bb);
     ind_M=nds2ind(k,N_dec);
     M_phi=cell(length(ind_M),1);
-    for i=1:size(M_phi,2)  
+    for i=1:length(M_phi)  
         %création du texte associé à chaque point du cercle de corrélation
         M_phi{i}=['  M\phi_{' num2str(ind_M(1,i)) '}^{' num2str(ind_M(2,i)) '}' ];
     end
@@ -788,13 +797,21 @@ if optim_basis_ACP
     disp('-----------------------------------------------------------------');
     clk=clock;
     if plot_
-        saveas(gcf-6,['rec_graph/tree_bb_acp_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
-        saveas(gcf-5,['rec_graph/1st_space_bb_acp_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
-        saveas(gcf-4,['rec_graph/2nd_space_bb_acp_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
-        saveas(gcf-3,['rec_graph/3rd_space_bb_acp_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
-        saveas(gcf-2,['rec_graph/4th_space_bb_acp_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
-        saveas(gcf-1,['rec_graph/distrib_bb_acp_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
-        saveas(gcf,['rec_graph/correl_circle_bb_acp_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
+        if exist('gcf-6','var')
+            ssaveas(gcf-6,['rec_graph/tree_bb_acp_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
+        elseif exist('gcf-5','var')
+            saveas(gcf-5,['rec_graph/1st_space_bb_acp_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
+        elseif exist('gcf-4','var')
+            saveas(gcf-4,['rec_graph/2nd_space_bb_acp_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
+        elseif exist('gcf-3','var')
+            saveas(gcf-3,['rec_graph/3rd_space_bb_acp_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
+        elseif exist('gcf-2','var')
+            saveas(gcf-2,['rec_graph/4th_space_bb_acp_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
+        elseif exist('gcf-1','var')
+            saveas(gcf-1,['rec_graph/distrib_bb_acp_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
+        elseif exist('gcf','var')
+            saveas(gcf,['rec_graph/correl_circle_bb_acp_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
+        end
     end
 end
 
