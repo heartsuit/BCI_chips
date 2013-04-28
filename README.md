@@ -53,10 +53,30 @@ if optim_basis = 1 in the main file, you will run:
 * programme_test_descripteur_xval.m  
      * set_wp_marg(computes all the mavelet packet marginals)
      * best_basis search (search what will be the best basis among all possible basis from the total set of marginals)
-          * calc_fisher_wp_features
-          * find_best_basis_fisher
+          * calc_fisher_wp_features (computes all the additive criteria used to choose the best basis)
+          * find_best_basis_fisher (analyzes the criteria to find the best basis and plot the final tree with the chosen coefficients)
      * svm_learning (used to train the set of marginals chosen thanks to the previous function)
      * test_class_ovr (used to compute class labeling on the test set)
      * function_acp (let us see in a better way of understanding the axes and sample influence on the results)
+
+wavelet packet transform optimization + acp pre "lifting"
+---------------------------------------------------------
+if optim_basis_acp = 1 in the main file, you will run:                                    
+                                     
+* programme_test_descripteur_xval.m  
+     * set_wp_marg(computes all the mavelet packet marginals)
+     * best_basis search (search what will be the best basis among all possible basis from the total set of marginals)
+          * calc_fisher_wp_features (computes all the additive criteria used to choose the best basis)
+          * find_best_basis_fisher (analyzes the criteria to find the best basis and plot the final tree with the chosen coefficients)
+     * function_acp (used to have less axes in the space representation in order to undertake a more efficient svm classification)
+     * svm_learning (used to train the set of marginals chosen thanks to the previous function)
+     * test_class_ovr (used to compute class labeling on the test set)
+     * function_acp (let us see in a better way of understanding the axes and sample influence on the results)
+
+hybrid method
+-------------
+if optim_algo = 1 in the main file, you will run:
+
+NOTHING, this method needs to be finished. The principle should be first to find an optimized mother wavelet on the standard wavelet coefficients and then to find a better basis to use this wavelet and then to compute a new optimized mother wavelet over this new basis to increase the classification results and looping this two steps till a certain criterion value.
 
 
