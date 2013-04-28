@@ -61,22 +61,37 @@ end
 %         basis(node(11,3))=1; 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        
+ 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%   Function plotting the tree and other usefull signal on it %%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
         
 if plot_tr.on
+
    
    color_={'-r','-b','-g','-c','-m','-y','-black','--r','--b','--g','--c','--m','--y','--k',':r',':b',':g',':c',':m',':y',':k','-.r','-.b','-.g','-.c','-.m','-.y','-.k'};
+   
+   %thanks to weft and the fundtiun treelayout we can reach the coordinate
+   %x and y from a tree defined by the var mesh
    weft=1:(nb_nodes-1)/2;
    weft=[weft;weft];weft=weft(:).';
    [x_weft,y_weft]=treelayout(cat(2,0,weft));
    
    %%%%%%%%%%%%%%%%%%%%%%  WARNING  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-   %  il faut modifier treelayout:
-   %ligne 81: x = deltax * (xmin+xmax)/2-deltax/2;
-   %ligne 79: deltax = 1/(nleaves);
+   %  treelayout as to be modified on your computer:
+   %line 81: x = deltax * (xmin+xmax)/2-deltax/2;
+   %line 79: deltax = 1/(nleaves);
    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+    %restrict choose to plot the tree only for the low frequency coef from
+    %DWPT
     if restric
+        
+        %we now have to find which points of the tree are coefficients from
+        %the best basis and which are not.
         gd_nodes=[];
         for i=N_dec-2:N_dec
             gd_nodes=[gd_nodes [2^i:2^i+2^(i-(N_dec-3))-1]];
@@ -123,25 +138,31 @@ if plot_tr.on
    hold on
    title('tree decomposition');
    
+   % finally we plot the tree
+   
    plot(x_fail*plot_tr.fe/2-0.5,y_fail,'s','MarkerFaceColor','b');
 
    plot(x_success*plot_tr.fe/2-0.5,y_success,'s','MarkerFaceColor','g','MarkerEdgeColor','g');
 
+    %if we work on the simulated signals we will also plot the central
+    %frequency of each class and all central frequency of each simulated
+    %signals
     if sim_sig
         plot(plot_tr.f,(min(y_weft)/2)*ones(length(plot_tr.f),1),...
             's','MarkerFaceColor','c','MarkerSize',5); 
-        %comparaison base choisi signaux à discerner représenté par leur paquet de fréquences caractéristiques
 
         plot(plot_tr.f_cl,(min(y_weft)*3/4)*ones(length(plot_tr.f_cl),1),...
             's','MarkerFaceColor','r','MarkerSize',5); 
-        %comparaison base choisi signaux à discerner représenter par leur fréquence centrale
    
         label{1}='useless M';
         label{2}='used M';
         label{3}='trials central freq.';
         label{4}='central class freq.';
-        
+    
+    %if it is real signal we plot the two FFT under the coefficient to
+    %understand the cutting of the frequential axis
     else
+        
         
         label{1}='useless M';
         label{2}='used M';
@@ -154,6 +175,7 @@ if plot_tr.on
    
 %%%%%%%%%%%%%%%%%%%%%%%% WAVELET FFT PLOTTING %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         
+        %we now plot the two FFTs from the mother wavelet that we have chosen  
         [inds,marg_ind]=findmarg(tree,basis,N_dec); 
         
 %         for i=1:size(inds,2)
@@ -176,7 +198,7 @@ if plot_tr.on
     legend(label);   
        
 %%%%%%%%%%%%%%%%%%%%%%%%%%% TEXT SHAPING %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-       
+   %if th enumber of point is not too important, I'm plotting the marginal values    
    h=num2str(tree,'% .2g');
    for i=1:size(h,1)
        k=strfind(h(i,:),'e-0');

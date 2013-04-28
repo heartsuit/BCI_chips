@@ -222,9 +222,9 @@ if optim_fisher || optim_pce || optim_algo
 %------------------------------------------------------------------
 %THE FUNCTION    
 
-if optim_algo
-    ind_des = 1:N_dec+1;
-end
+    if optim_algo
+        ind_des = 1:N_dec+1;
+    end
 
     [features_dic,h_dic,g_dic] = create_dic(signal_learn,N_dec,ind_des);
 
@@ -238,9 +238,11 @@ h_ini = ones(nb_chans,1)*h_ini;
 g_ini = ones(nb_chans,1)*g_ini;
 % features_ini = zeros(nb_trials,length(ind_des),nb_chans);
 % features_ini = zeros(nb_trials,nb_samples,nb_chans);
-for i=1:nb_trials
-    for k=1:nb_chans
-        features_ini(i,:,k) = calc_features(signal_learn(i,:,k),N_dec,ind_des,h_ini(k,:),g_ini(k,:));
+if dwt_without_optim optim_pce
+    for i=1:nb_trials
+        for k=1:nb_chans
+            features_ini(i,:,k) = calc_features(signal_learn(i,:,k),N_dec,ind_des,h_ini(k,:),g_ini(k,:));
+        end
     end
 end
 

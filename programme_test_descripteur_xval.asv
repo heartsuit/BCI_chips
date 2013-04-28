@@ -1,5 +1,5 @@
 function programme_test_descripteur_xval(subject,optim,plot_tree,kept_axes,...
-    nb_subsets,simu_para,restric,filtre,wname_ini,plot_raw)
+    nb_subsets,simu_para,restric,filtre,wname_ini,plot_raw,plot_real_sig)
 %Function pour charger les signaux
 %Signaux sous la forme de structure
 %Parametres de la structure class
@@ -62,8 +62,11 @@ if sim_sig==0
         plot_tr.fe=Fe;
     end
     
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% FILTERING %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     if filtre
+        % standard wp and ws values: 35 , 45
+        % plotèraw values 10 , 20
         [n_cheb,W_cheb]=cheb2ord(2*35/1024,2*45/1024,3,60);
         
         [b_filt,a_filt]=cheby2(n_cheb,60,W_cheb);
@@ -88,21 +91,30 @@ if sim_sig==0
         if plot_raw
             
             mean1=mean(signal_learn(y_learn==1,:,1),1);
-            sdt1=std(signal_learn(y_learn==1,:,1),1);
+            std1=std(signal_learn(y_learn==1,:,1),1);
             mean2=mean(signal_learn(y_learn==2,:,1),1);
-            sdt2=std(signal_learn(y_learn==2,:,1),1);            
+            std2=std(signal_learn(y_learn==2,:,1),1);      
+            for i=1:3
+                mean1(i)=mean1(4);
+                std1(i)=std1(4);
+                mean2(i)=mean2(4);
+                std2(i)=std2(4);    
+            end
             
             
             figure;
             hold on;
             title('raw data representation');
-            plot([-0.5:1/Fe:1.5],mean1,'-r');
-            plot([-0.5:1/Fe:1.5],mean1+std1,'--r');
-            plot([-0.5:1/Fe:1.5],mean1+std1,'--r');
-            plot([-0.5:1/Fe:1.5],mean,'-r');
-            plot([-0.5:1/Fe:1.5],mean1+std1,'--r');
-            plot([-0.5:1/Fe:1.5],mean1+std1,'--r');
-            
+            plot([-0.5:1/Fe:1.5],mean1,'-b','LineWidth',2);
+            plot([-0.5:1/Fe:1.5],mean1+std1,':b');
+            plot([-0.5:1/Fe:1.5],mean1-std1,':b');
+            plot([-0.5:1/Fe:1.5],mean2,'-r','LineWidth',2);
+            plot([-0.5:1/Fe:1.5],mean2+std2,':r');
+            plot([-0.5:1/Fe:1.5],mean2-std2,':r');
+            plot([0,0],[min([mean1-std1,mean2-std2]),max([mean1+std1,mean2+std2])],'-k');
+            xlabel('Time (s)');
+            ylabel('U (mV)');
+           
         end
         
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -126,19 +138,21 @@ if sim_sig==0
 
     
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  SIGNAL VISUALISATION  %%%%%%%%%%%%%%%%%%%%
-%     tri=10;
-%     figure('Name',['temporal representation of the signal number ' num2str(tri) ' with its mean']);
-% 
-% %         [a,b,c]=analyseFFT(signal_learn(tri,:,1)',Fe);
-%     [a,b,c]=analyseFFT((signal_learn(tri,:,1)-mean(signal_learn(tri,:,1)))',Fe);
-%     
-%     plot(signal_learn(tri,:,1),'color','b');
-%     hold on;
-%     disp(mean(signal_learn(tri,:,1)));
-%     plot(mean(signal_learn(tri,:,1))*ones(length(signal_learn(tri,:,1)),1),'color','r');
-%     figure('Name', 'fourrier representation of this signal');
-%     plot(a(1:floor(c/2)),abs(b(1:floor(c/2))));
-%     keyboard;
+    if plot_real_sig
+        tri=10;
+        figure('Name',['temporal representation of the signal number ' num2str(tri) ' with its mean']);
+
+    %         [a,b,c]=analyseFFT(signal_learn(tri,:,1)',Fe);
+        [a,b,c]=analyseFFT((signal_learn(tri,:,1)-mean(signal_learn(tri,:,1)))',Fe);
+
+        plot(signal_learn(tri,:,1),'color','b');
+        hold on;
+        disp(mean(signal_learn(tri,:,1)));
+        plot(mean(signal_learn(tri,:,1))*ones(length(signal_learn(tri,:,1)),1),'color','r');
+        figure('Name', 'fourrier representation of this signal');
+        plot(a(1:floor(c/2)),abs(b(1:floor(c/2))));
+        keyboard;
+    end
        
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -208,9 +222,9 @@ if optim_fisher || optim_pce || optim_algo
 %------------------------------------------------------------------
 %THE FUNCTION    
 
-if optim_algo
-    ind_des = 1:N_dec+1;
-end
+    if optim_algo
+        ind_des = 1:N_dec+1;
+    end
 
     [features_dic,h_dic,g_dic] = create_dic(signal_learn,N_dec,ind_des);
 
@@ -224,9 +238,11 @@ h_ini = ones(nb_chans,1)*h_ini;
 g_ini = ones(nb_chans,1)*g_ini;
 % features_ini = zeros(nb_trials,length(ind_des),nb_chans);
 % features_ini = zeros(nb_trials,nb_samples,nb_chans);
-for i=1:nb_trials
-    for k=1:nb_chans
-        features_ini(i,:,k) = calc_features(signal_learn(i,:,k),N_dec,ind_des,h_ini(k,:),g_ini(k,:));
+if dwt_without_optim || optim_pce || optim_fisher
+    for i=1:nb_trials
+        for k=1:nb_chans
+            features_ini(i,:,k) = calc_features(signal_learn(i,:,k),N_dec,ind_des,h_ini(k,:),g_ini(k,:));
+        end
     end
 end
 
@@ -613,11 +629,11 @@ if optim_basis
     k=find(basis_bb);
     ind_M=nds2ind(k,N_dec);
     M_phi=cell(length(ind_M),1);
-    for i=1:size(M_phi,2)  
+    for i=1:length(M_phi)  
         %création du texte associé à chaque point du cercle de corrélation
         M_phi{i}=['  M\phi_{' num2str(ind_M(1,i)) '}^{' num2str(ind_M(2,i)) '}' ];
     end
-    plot_=0;
+    plot_=1;
     function_acp(features_reshape_bb_app(:,1:size(features_reshape_bb_app,2)/length(chans)),y_bb_app,plot_,M_phi,sub_name);
     drawnow
     for i=1:nb_class+1
@@ -646,13 +662,21 @@ if optim_basis
     
     clk=clock;
     if plot_
-        saveas(gcf-6,['rec_graph/tree_bb_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
-        saveas(gcf-5,['rec_graph/1st_space_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
-        saveas(gcf-4,['rec_graph/2nd_space_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
-        saveas(gcf-3,['rec_graph/3rd_space_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
-        saveas(gcf-2,['rec_graph/4th_space_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
-        saveas(gcf-1,['rec_graph/distrib_bb_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
-        saveas(gcf,['rec_graph/correl_circle_bb_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
+        if exist('gcf-6','var')
+            ssaveas(gcf-6,['rec_graph/tree_bb_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
+        elseif exist('gcf-5','var')
+            saveas(gcf-5,['rec_graph/1st_space_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
+        elseif exist('gcf-4','var')
+            saveas(gcf-4,['rec_graph/2nd_space_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
+        elseif exist('gcf-3','var')
+            saveas(gcf-3,['rec_graph/3rd_space_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
+        elseif exist('gcf-2','var')
+            saveas(gcf-2,['rec_graph/4th_space_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
+        elseif exist('gcf-1','var')
+            saveas(gcf-1,['rec_graph/distrib_bb_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
+        elseif exist('gcf','var')
+            saveas(gcf,['rec_graph/correl_circle_bb_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
+        end
     end
 end
 
@@ -739,7 +763,7 @@ if optim_basis_ACP
     k=find(basis_bb);
     ind_M=nds2ind(k,N_dec);
     M_phi=cell(length(ind_M),1);
-    for i=1:size(M_phi,2)  
+    for i=1:length(M_phi)  
         %création du texte associé à chaque point du cercle de corrélation
         M_phi{i}=['  M\phi_{' num2str(ind_M(1,i)) '}^{' num2str(ind_M(2,i)) '}' ];
     end
@@ -775,13 +799,21 @@ if optim_basis_ACP
     disp('-----------------------------------------------------------------');
     clk=clock;
     if plot_
-        saveas(gcf-6,['rec_graph/tree_bb_acp_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
-        saveas(gcf-5,['rec_graph/1st_space_bb_acp_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
-        saveas(gcf-4,['rec_graph/2nd_space_bb_acp_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
-        saveas(gcf-3,['rec_graph/3rd_space_bb_acp_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
-        saveas(gcf-2,['rec_graph/4th_space_bb_acp_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
-        saveas(gcf-1,['rec_graph/distrib_bb_acp_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
-        saveas(gcf,['rec_graph/correl_circle_bb_acp_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
+        if exist('gcf-6','var')
+            ssaveas(gcf-6,['rec_graph/tree_bb_acp_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
+        elseif exist('gcf-5','var')
+            saveas(gcf-5,['rec_graph/1st_space_bb_acp_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
+        elseif exist('gcf-4','var')
+            saveas(gcf-4,['rec_graph/2nd_space_bb_acp_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
+        elseif exist('gcf-3','var')
+            saveas(gcf-3,['rec_graph/3rd_space_bb_acp_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
+        elseif exist('gcf-2','var')
+            saveas(gcf-2,['rec_graph/4th_space_bb_acp_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
+        elseif exist('gcf-1','var')
+            saveas(gcf-1,['rec_graph/distrib_bb_acp_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
+        elseif exist('gcf','var')
+            saveas(gcf,['rec_graph/correl_circle_bb_acp_sim_' num2str(sim_sig) '_if_nosim_name_' sub_name '_date_' num2str(clk(3)) '-' num2str(clk(2)) '_' num2str(clk(4)) 'h' num2str(clk(5)) ], 'fig');
+        end
     end
 end
 
