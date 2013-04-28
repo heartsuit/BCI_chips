@@ -25,6 +25,6 @@ if optim_pce = 1 in the main file, you will run:
 * programme_test_descripteur_xval.m  
      * create_dic (computes every set of classical wavelet coefficients on a parameterized wavelet)
      * calc_feature (used to have a first set of coefficient computed on db4, in order to compare the effectiveness of our parameterization)
-     * svm_learning (used to train the set of coefficient computed on db4)
+     * svm_learning (used to train the set of coefficient computed on a certain \theta)
      * test_class_ovr (used to compute class labeling on the test set)
      * function_acp (let us see in a better way of understanding the axes and sample influence on the results)
