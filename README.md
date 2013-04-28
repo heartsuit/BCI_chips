@@ -59,7 +59,7 @@ if optim_basis = 1 in the main file, you will run:
      * test_class_ovr (used to compute class labeling on the test set)
      * function_acp (let us see in a better way of understanding the axes and sample influence on the results)
 
-wavelet packet transform optimization + acp pre "lifting"
+wavelet packet transform optimization + PCA pre "lifting"
 ---------------------------------------------------------
 if optim_basis_acp = 1 in the main file, you will run:                                    
                                      
